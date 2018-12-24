@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorHash", "ColorHash\ColorHash.csproj", "{68766358-4CA1-4A57-94B9-0E1CF0F809BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorHash.Tests", "ColorHash.Tests\ColorHash.Tests.csproj", "{2170724A-3466-4604-B243-D3B0936B44A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68766358-4CA1-4A57-94B9-0E1CF0F809BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68766358-4CA1-4A57-94B9-0E1CF0F809BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68766358-4CA1-4A57-94B9-0E1CF0F809BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68766358-4CA1-4A57-94B9-0E1CF0F809BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2170724A-3466-4604-B243-D3B0936B44A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2170724A-3466-4604-B243-D3B0936B44A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2170724A-3466-4604-B243-D3B0936B44A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2170724A-3466-4604-B243-D3B0936B44A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {627C67CF-7341-4A16-BF8A-8EF505E6F60B}
+	EndGlobalSection
+EndGlobal
