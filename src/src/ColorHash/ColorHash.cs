@@ -46,7 +46,9 @@ namespace Fernandezja.ColorHash
             if (_options.HueRanges.Count > 0)
             {
                 var rangeIndex = hash % Convert.ToUInt64(_options.HueRanges.Count);
-                var hueValue = (Hue)_options.HueRanges[(int)rangeIndex]; //TODO: Convert int? prevent error
+
+                //TODO: Convert int? prevent error
+                var hueValue = (Hue)_options.HueRanges[(int)rangeIndex]; 
 
                 var hueResolution = Convert.ToUInt64(727); 
                 h = ((hash / Convert.ToUInt64(_options.HueRanges.Count)) % hueResolution) 
@@ -58,13 +60,13 @@ namespace Fernandezja.ColorHash
                 h = hash % 359; // note that 359 is a prime
             }
 
-            hash = (uint)(hash / 360);
-            var sIndex = (int)(hash % Convert.ToUInt64(_options.S.Count));
-            s = (double)_options.S[sIndex];
+            hash = (hash / 360);
+            var sIndex = (hash % (ulong)_options.S.Count);
+            s = (double)_options.S[(int)sIndex];
 
-            hash = (uint)(hash / Convert.ToUInt64(_options.S.Count));
-            var lIndex = (int)(hash % Convert.ToUInt64(_options.L.Count));
-            l = (double)_options.L[lIndex];
+            hash = (hash / (ulong)_options.S.Count);
+            var lIndex = (hash % (ulong)_options.L.Count);
+            l = (double)_options.L[(int)lIndex];
 
             var hslResult = new Hsl(h, s, l);
 

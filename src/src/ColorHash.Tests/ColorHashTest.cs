@@ -27,8 +27,8 @@ namespace ColorHash.Tests
         [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHSL")]
         [InlineData("yoda", 76, 0.35, 0.35)]
         [InlineData("Yoda", 314, 0.5, 0.65)]
-        [InlineData("starwars", 339, 0.65, 0.5)]
-        [InlineData("StarWars", 135, 0.35, 0.35)]
+        [InlineData("starwars", 339, 0.35, 0.5)]
+        [InlineData("StarWars", 135, 0.5, 0.35)]
         public void BuildToHsl_ShouldCreateAColorInHSL(
             string phrase, double hExpected, double sExpected, double lExpected)
         {
@@ -45,8 +45,8 @@ namespace ColorHash.Tests
         [Theory(DisplayName = "BuildToHex_ShouldCreateAColorInHex")]
         [InlineData("yoda", "51593A")]
         [InlineData("Yoda", "A65392")]
-        [InlineData("starwars", "802D4A")]
-        [InlineData("StarWars", "3A5942")]
+        [InlineData("starwars", "805362")]
+        [InlineData("StarWars", "2D5938")]
         public void BuildToHex_ShouldCreateAColorInHex(string phrase, string hexExpected)
         {
             var colorHash = new Fernandezja.ColorHash.ColorHash();
@@ -77,8 +77,8 @@ namespace ColorHash.Tests
 
             Assert.NotNull(result);
             Assert.Equal(225, result.H);
-            Assert.Equal(0.65, result.S);
-            Assert.Equal(0.35, result.L);
+            Assert.Equal(0.35, result.S);
+            Assert.Equal(0.65, result.L);
         }
 
         [Fact(DisplayName = "Build_HelloWorldString")]
@@ -90,15 +90,15 @@ namespace ColorHash.Tests
             var resultColor = ColorHash.BuildToColor("Hello World");
             var resultHex = ColorHash.BuildToHex("Hello World");
 
-            Assert.Equal(31, resultColor.R);
-            Assert.Equal(46, resultColor.G);
-            Assert.Equal(89, resultColor.B);
+            Assert.Equal(108, resultColor.R);
+            Assert.Equal(122, resultColor.G);
+            Assert.Equal(166, resultColor.B);
 
             Assert.Equal(225, resultHsl.H);
-            Assert.Equal(0.65, resultHsl.S);
-            Assert.Equal(0.35, resultHsl.L);
+            Assert.Equal(0.35, resultHsl.S);
+            Assert.Equal(0.65, resultHsl.L);
 
-            Assert.Equal("1F2E59", resultHex);
+            Assert.Equal("6C7AA6", resultHex);
 
 
         }
