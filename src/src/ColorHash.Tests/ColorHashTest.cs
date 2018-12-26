@@ -9,7 +9,6 @@ namespace ColorHash.Tests
 {
     public class ColorHashTest
     {
-
         [Fact(DisplayName = "BuildToHsl_ShouldCreateAColorWithTextYodaInHSL")]
         public void BuildToHsl_ShouldCreateAColorWithHSL()
         {
@@ -103,5 +102,8 @@ namespace ColorHash.Tests
 
 
         }
+
+
+
     }
 }
