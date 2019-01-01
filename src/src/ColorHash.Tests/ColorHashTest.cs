@@ -43,10 +43,10 @@ namespace ColorHash.Tests
         }
 
         [Theory(DisplayName = "BuildToHex_ShouldCreateAColorInHex")]
-        [InlineData("yoda", "51593A")]
-        [InlineData("Yoda", "A65392")]
-        [InlineData("starwars", "805362")]
-        [InlineData("StarWars", "2D5938")]
+        [InlineData("yoda", "68783A")]
+        [InlineData("Yoda", "D279BE")]
+        [InlineData("starwars", "AC5372")]
+        [InlineData("StarWars", "2D8643")]
         public void BuildToHex_ShouldCreateAColorInHex(string phrase, string hexExpected)
         {
             var colorHash = new Fernandezja.ColorHash.ColorHash();
@@ -64,7 +64,7 @@ namespace ColorHash.Tests
 
             var result = colorHash.BuildToColor("yoda");
             
-            Assert.Equal(Color.FromArgb(alpha:255,red:81,green:89, blue:58), 
+            Assert.Equal(Color.FromArgb(alpha:255,red:104,green:120, blue:58), 
                         result);
         }
 
@@ -81,8 +81,8 @@ namespace ColorHash.Tests
             Assert.Equal(0.65, result.L);
         }
 
-        [Fact(DisplayName = "Build_HelloWorldString")]
-        public void Build_HelloWorldString()
+        [Fact(DisplayName = "Build_HelloWorldStringToHslColorAndHex")]
+        public void Build_HelloWorldStringToHslColorAndHex()
         {
             var ColorHash = new Fernandezja.ColorHash.ColorHash();
 
@@ -90,15 +90,15 @@ namespace ColorHash.Tests
             var resultColor = ColorHash.BuildToColor("Hello World");
             var resultHex = ColorHash.BuildToHex("Hello World");
 
-            Assert.Equal(108, resultColor.R);
-            Assert.Equal(122, resultColor.G);
-            Assert.Equal(166, resultColor.B);
+            Assert.Equal(135, resultColor.R);
+            Assert.Equal(150, resultColor.G);
+            Assert.Equal(197, resultColor.B);
 
             Assert.Equal(225, resultHsl.H);
             Assert.Equal(0.35, resultHsl.S);
             Assert.Equal(0.65, resultHsl.L);
 
-            Assert.Equal("6C7AA6", resultHex);
+            Assert.Equal("8796C5", resultHex);
 
 
         }
