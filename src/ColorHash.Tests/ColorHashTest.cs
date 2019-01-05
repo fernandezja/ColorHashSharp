@@ -103,6 +103,44 @@ namespace ColorHash.Tests
 
         }
 
+        [Fact(DisplayName = "Hsl_ShouldCreateAColorInHSL")]
+        public void Hsl_ShouldCreateAColorInHSL()
+        {
+            var colorHash = new Fernandezja.ColorHash.ColorHash();
+
+            var result = colorHash.Hsl("Hello World");
+
+            Assert.NotNull(result);
+            Assert.Equal(225, result.H);
+            Assert.Equal(0.35, result.S);
+            Assert.Equal(0.65, result.L);
+        }
+
+
+
+        [Fact(DisplayName = "Hex_ShouldCreateAColorInHex")]
+        public void Hex_ShouldCreateAColorInHex()
+        {
+            var colorHash = new Fernandezja.ColorHash.ColorHash();
+
+            var result = colorHash.BuildToHex("Hello World");
+
+            Assert.NotNull(result);
+            Assert.Equal("8796C5", result);
+        }
+
+
+        [Fact(DisplayName = "Rgb_ShouldCreateAColorInRgb")]
+        public void Rgb_ShouldCreateAColorInRgb()
+        {
+            var colorHash = new Fernandezja.ColorHash.ColorHash();
+
+            var result = colorHash.Rgb("Hello World");
+
+            Assert.Equal(135, result.R);
+            Assert.Equal(150, result.G);
+            Assert.Equal(197, result.B);
+        }
 
 
     }

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Text;
 using System.Drawing;
+using Fernandezja.ColorHash.Interfaces;
 
 namespace Fernandezja.ColorHash
 {
-    public class ColorHash
+    public class ColorHash : IColorHash, IColorHashAlias
     {
 
         private Options _options;
@@ -17,8 +18,10 @@ namespace Fernandezja.ColorHash
              _options = new Options();
         }
 
+        #region IColorHash
 
-        public string Build(string value) {
+        public string Build(string value)
+        {
             return BuildToHex(value);
         }
 
@@ -36,7 +39,8 @@ namespace Fernandezja.ColorHash
             return hex;
         }
 
-        public Hsl BuildToHsl(string value) {
+        public Hsl BuildToHsl(string value)
+        {
             double h, s, l;
 
             var hashGenerator = new BKDRHash();
@@ -48,10 +52,10 @@ namespace Fernandezja.ColorHash
                 var rangeIndex = hash % Convert.ToUInt64(_options.HueRanges.Count);
 
                 //TODO: Convert int? prevent error
-                var hueValue = (Hue)_options.HueRanges[(int)rangeIndex]; 
+                var hueValue = (Hue)_options.HueRanges[(int)rangeIndex];
 
-                var hueResolution = Convert.ToUInt64(727); 
-                h = ((hash / Convert.ToUInt64(_options.HueRanges.Count)) % hueResolution) 
+                var hueResolution = Convert.ToUInt64(727);
+                h = ((hash / Convert.ToUInt64(_options.HueRanges.Count)) % hueResolution)
                     * (Convert.ToUInt64(hueValue.Max) - Convert.ToUInt64(hueValue.Min)) / hueResolution + Convert.ToUInt64(hueValue.Min);
 
             }
@@ -72,5 +76,40 @@ namespace Fernandezja.ColorHash
 
             return hslResult;
         }
+        #endregion
+
+        #region IColorHashAlias
+
+        /// <summary>
+        /// Alias of BuildToColor method
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public Color Rgb(string value) {
+            return BuildToColor(value);
+        }
+
+        /// <summary>
+        /// Alias of BuildToHex method
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public string Hex(string value)
+        {
+            return BuildToHex(value);
+        }
+
+
+        /// <summary>
+        /// Alias of BuildToHsl method
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public Hsl Hsl(string value)
+        {
+            return BuildToHsl(value);
+        }
+
+        #endregion
     }
 }
