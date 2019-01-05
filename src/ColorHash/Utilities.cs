@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fernandezja.ColorHash
+namespace Fernandezja.ColorHashSharp
 {
     public class Utilities
     {

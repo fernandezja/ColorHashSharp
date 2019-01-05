@@ -1,10 +1,10 @@
-﻿using Fernandezja.ColorHash;
+﻿using Fernandezja.ColorHashSharp;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace ColorHash.Tests
+namespace ColorHashSharp.Tests
 {
     public class ColorToRgbTest
     {

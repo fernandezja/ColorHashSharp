@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
-using Fernandezja.ColorHash.Entities;
+using Fernandezja.ColorHashSharp.Entities;
 
-namespace Fernandezja.ColorHash.Interfaces
+namespace Fernandezja.ColorHashSharp.Interfaces
 {
     public interface IColorHash
     {

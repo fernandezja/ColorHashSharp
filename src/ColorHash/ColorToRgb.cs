@@ -1,11 +1,11 @@
-﻿using Fernandezja.ColorHash.Entities;
+﻿using Fernandezja.ColorHashSharp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 
-namespace Fernandezja.ColorHash
+namespace Fernandezja.ColorHashSharp
 {
     public class ColorToRgb
     {

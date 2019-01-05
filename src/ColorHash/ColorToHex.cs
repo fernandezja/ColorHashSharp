@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace Fernandezja.ColorHash
+namespace Fernandezja.ColorHashSharp
 {
     public class ColorToHex
     {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorHash", "ColorHash\ColorHash.csproj", "{68766358-4CA1-4A57-94B9-0E1CF0F809BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorHashSharp", "ColorHash\ColorHashSharp.csproj", "{68766358-4CA1-4A57-94B9-0E1CF0F809BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorHash.Tests", "ColorHash.Tests\ColorHash.Tests.csproj", "{2170724A-3466-4604-B243-D3B0936B44A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorHashSharp.Tests", "ColorHash.Tests\ColorHashSharp.Tests.csproj", "{2170724A-3466-4604-B243-D3B0936B44A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

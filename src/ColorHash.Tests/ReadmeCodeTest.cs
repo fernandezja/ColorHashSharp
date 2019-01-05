@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ColorHashSharp = Fernandezja.ColorHash;
 using Xunit;
 using System.Diagnostics;
+using Fernandezja.ColorHashSharp;
 
-namespace ColorHash.Tests
+namespace ColorHashSharp.Tests
 {
     public class ReadmeCodeTest
     {
@@ -14,7 +14,7 @@ namespace ColorHash.Tests
         {
             Debug.WriteLine($"ColorHash >  Hello World");
 
-            var colorHash = new ColorHashSharp.ColorHash();
+            var colorHash = new ColorHash();
 
             //HSL (return HSL object)
             var hsl = colorHash.Hsl("Hello World");

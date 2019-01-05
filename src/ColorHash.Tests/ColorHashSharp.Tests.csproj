@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ColorHash\ColorHash.csproj" />
+    <ProjectReference Include="..\ColorHash\ColorHashSharp.csproj" />
   </ItemGroup>
 
 </Project>

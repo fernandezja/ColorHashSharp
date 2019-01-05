@@ -1,12 +1,12 @@
-﻿using Fernandezja.ColorHash.Entities;
+﻿using Fernandezja.ColorHashSharp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Text;
 using System.Drawing;
-using Fernandezja.ColorHash.Interfaces;
+using Fernandezja.ColorHashSharp.Interfaces;
 
-namespace Fernandezja.ColorHash
+namespace Fernandezja.ColorHashSharp
 {
     public class ColorHash : IColorHash, IColorHashAlias
     {

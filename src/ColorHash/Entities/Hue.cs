@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fernandezja.ColorHash.Entities
+namespace Fernandezja.ColorHashSharp.Entities
 {
     /// <summary>
     /// Hue is one of the main properties (called color appearance parameters) of a color.

@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
-using Fernandezja.ColorHash;
+using Fernandezja.ColorHashSharp;
 using Xunit;
 
-namespace ColorHash.Tests
+namespace ColorHashSharp.Tests
 {
     public class OptionsTest
     {
@@ -14,7 +14,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "GetLS_OneValue")] 
         public void GetLS_OneValue()
         {
-            var options = new Fernandezja.ColorHash.Options();
+            var options = new Fernandezja.ColorHashSharp.Options();
             var result = options.GetLS(0.35);
             Assert.NotNull(result);
             Assert.Single(result);
@@ -24,7 +24,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "GetLS_DefaultValues")]
         public void GetLS_DefaultValues()
         {
-            var options = new Fernandezja.ColorHash.Options();
+            var options = new Fernandezja.ColorHashSharp.Options();
             var result = options.GetLS();
             Assert.NotNull(result);
             Assert.Equal(3, result.Count);
@@ -36,7 +36,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "GetLS_ArrayValues")]
         public void GetLS_ArrayValues()
         {
-            var options = new Fernandezja.ColorHash.Options();
+            var options = new Fernandezja.ColorHashSharp.Options();
             var result = options.GetLS(new ArrayList() { 0.35, 0.35, 0.35});
             Assert.NotNull(result);
             Assert.Equal(3, result.Count);

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Numerics;
 using System.Text;
 
-namespace Fernandezja.ColorHash
+namespace Fernandezja.ColorHashSharp
 {
     public class BKDRHash
     {

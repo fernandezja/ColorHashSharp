@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
-using Fernandezja.ColorHash;
+using Fernandezja.ColorHashSharp;
 using Xunit;
 
-namespace ColorHash.Tests
+namespace ColorHashSharp.Tests
 {
     public class ColorHashTest
     {
         [Fact(DisplayName = "BuildToHsl_ShouldCreateAColorWithTextYodaInHSL")]
         public void BuildToHsl_ShouldCreateAColorWithHSL()
         {
-            var colorHash = new Fernandezja.ColorHash.ColorHash();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var result = colorHash.BuildToHsl("yoda");
 
@@ -32,7 +32,7 @@ namespace ColorHash.Tests
         public void BuildToHsl_ShouldCreateAColorInHSL(
             string phrase, double hExpected, double sExpected, double lExpected)
         {
-            var colorHash = new Fernandezja.ColorHash.ColorHash();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var result = colorHash.BuildToHsl(phrase);
 
@@ -49,7 +49,7 @@ namespace ColorHash.Tests
         [InlineData("StarWars", "2D8643")]
         public void BuildToHex_ShouldCreateAColorInHex(string phrase, string hexExpected)
         {
-            var colorHash = new Fernandezja.ColorHash.ColorHash();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var result = colorHash.BuildToHex(phrase);
 
@@ -60,7 +60,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "BuildToColor_ShouldCreateAColorObject")]
         public void BuildToColor_ShouldCreateAColorObject()
         {
-            var colorHash = new Fernandezja.ColorHash.ColorHash();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var result = colorHash.BuildToColor("yoda");
             
@@ -71,7 +71,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "BuildToHsl_HelloWorldString")]
         public void BuildToHsl_HelloWorldString()
         {
-            var colorHash = new Fernandezja.ColorHash.ColorHash();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var result = colorHash.BuildToHsl("Hello World");
 
@@ -84,7 +84,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "Build_HelloWorldStringToHslColorAndHex")]
         public void Build_HelloWorldStringToHslColorAndHex()
         {
-            var ColorHash = new Fernandezja.ColorHash.ColorHash();
+            var ColorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var resultHsl = ColorHash.BuildToHsl("Hello World");
             var resultColor = ColorHash.BuildToColor("Hello World");
@@ -106,7 +106,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "Hsl_ShouldCreateAColorInHSL")]
         public void Hsl_ShouldCreateAColorInHSL()
         {
-            var colorHash = new Fernandezja.ColorHash.ColorHash();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var result = colorHash.Hsl("Hello World");
 
@@ -121,7 +121,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "Hex_ShouldCreateAColorInHex")]
         public void Hex_ShouldCreateAColorInHex()
         {
-            var colorHash = new Fernandezja.ColorHash.ColorHash();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var result = colorHash.BuildToHex("Hello World");
 
@@ -133,7 +133,7 @@ namespace ColorHash.Tests
         [Fact(DisplayName = "Rgb_ShouldCreateAColorInRgb")]
         public void Rgb_ShouldCreateAColorInRgb()
         {
-            var colorHash = new Fernandezja.ColorHash.ColorHash();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
             var result = colorHash.Rgb("Hello World");
 

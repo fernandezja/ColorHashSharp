@@ -1,8 +1,8 @@
-using Fernandezja.ColorHash;
+using Fernandezja.ColorHashSharp;
 using System;
 using Xunit;
 
-namespace ColorHash.Tests
+namespace ColorHashSharp.Tests
 {
     public class BKDRHashTest
     {
