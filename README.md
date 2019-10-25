@@ -1,7 +1,7 @@
 ﻿# ColorHashSharp
 Generate color based on the given string. C# port of [ColorHash Javascript Library](https://github.com/zenozeng/color-hash).
 
-
+[![NuGet version (ColorHashSharp)](https://img.shields.io/nuget/v/ColorHashSharp.svg?style=flat-square)](https://www.nuget.org/packages/ColorHashSharp/)
 [![Build status](https://fernandezja.visualstudio.com/ColorHashSharp/_apis/build/status/ColorHashSharp-CI)](https://fernandezja.visualstudio.com/ColorHashSharp/_build/latest?definitionId=4)
 
 #### Basic
