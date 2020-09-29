@@ -6,8 +6,7 @@
  jobs:
    build:
      executor: win/default     
-    
+     working_directory: ~/src
      steps:
        - checkout
-       - working_directory: /src
        - run: dotnet build
