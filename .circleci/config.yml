@@ -9,4 +9,5 @@
     
      steps:
        - checkout
+       - working_directory: /src
        - run: dotnet build
