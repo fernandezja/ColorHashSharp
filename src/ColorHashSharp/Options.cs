@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fernandezja.ColorHashSharp.Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,9 @@ namespace Fernandezja.ColorHashSharp
 {
     public class Options
     {
-        public ArrayList HueRanges { get; set; }
+        public List<Hue> HueRanges { get; set; }
+
+        //public List<ItemMinMax> Hue { get; set; }
 
         /// <summary>
         /// Saturation
@@ -25,7 +28,7 @@ namespace Fernandezja.ColorHashSharp
             S = GetLS(new ArrayList() { 0.35, 0.5, 0.65 });
             L = GetLS(new ArrayList() { 0.35, 0.5, 0.65 });
 
-            HueRanges = new ArrayList();
+            HueRanges = new List<Hue>();
         }
 
 
@@ -58,6 +61,23 @@ namespace Fernandezja.ColorHashSharp
         internal protected ArrayList GetLS()
         {
             return GetLS(null);
+        }
+
+
+        internal protected void SetHue(int value)
+        {
+            HueRanges = new List<Hue>();
+            HueRanges.Add(new Hue(value, value));
+        }
+
+        internal protected void SetHue(List<(int Min, int Max)> values)
+        {
+            HueRanges = new List<Hue>();
+
+            foreach (var value in values)
+            {
+                HueRanges.Add(new Hue(value.Min, value.Max));
+            }           
         }
 
 

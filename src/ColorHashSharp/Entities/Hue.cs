@@ -18,6 +18,12 @@ namespace Fernandezja.ColorHashSharp.Entities
             Max = 360;
         }
 
+        public Hue(int min, int max)
+        {
+            Min = min;
+            Max = max;
+        }
+
         public int Min { get; set; }
         public int Max { get; set; }
 
