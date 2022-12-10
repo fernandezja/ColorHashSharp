@@ -19,4 +19,12 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\dev\fernandezja\ColorHashSharp\src\ColorHashSharp\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\dev\fernandezja\ColorHashSharp\src\ColorHashSharp\.editorconfig" />
+  </ItemGroup>
+
 </Project>

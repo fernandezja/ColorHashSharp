@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorHashSharp.Tests", "Col
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorHashSharp.Benchmarks", "ColorHashSharp.Benchmarks\ColorHashSharp.Benchmarks.csproj", "{2CC808B2-AF1F-4556-B601-C755129CCEB0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VS", "VS", "{811ECE6D-7BC3-458D-8B6E-09B85D0E1413}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
