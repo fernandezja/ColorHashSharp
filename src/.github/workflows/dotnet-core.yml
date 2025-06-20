@@ -7,7 +7,7 @@ on:
     branches: [ master, develop ]
 
 jobs:
-  build-and-test:
+  build-and-test:   
     runs-on: windows-latest
     strategy:
       matrix:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
             8.0.x
