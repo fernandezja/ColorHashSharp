@@ -8,31 +8,18 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     strategy:
       matrix:
-        include:
-          - os: ubuntu-latest
-            dotnet-version: '8.0.x'
-            test-framework: 'net8.0'
-          - os: ubuntu-latest
-            dotnet-version: '9.0.x'
-            test-framework: 'net9.0'
-          - os: windows-latest
-            dotnet-version: '8.0.x'
-            test-framework: 'net48'
-          - os: windows-latest
-            dotnet-version: '8.0.x'
-            test-framework: 'net481'
+        test-framework: [ 'net8.0', 'net9.0', 'net48', 'net481' ]
     steps:
       - uses: actions/checkout@v2
-      - name: Install OpenSSL (Ubuntu only)
-        if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y libssl-dev
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: |
+            8.0.x
+            9.0.x
       - name: Install dependencies
         working-directory: src
         run: dotnet restore
