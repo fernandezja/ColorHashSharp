@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            dotnet-version: '8.0.x'
+            test-framework: 'net8.0'
+          - os: ubuntu-latest
+            dotnet-version: '9.0.x'
+            test-framework: 'net9.0'
+          - os: windows-latest
+            dotnet-version: '8.0.x'
+            test-framework: 'net48'
+          - os: windows-latest
+            dotnet-version: '8.0.x'
+            test-framework: 'net481'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        working-directory: src
+        run: dotnet restore
+      - name: Build
+        working-directory: src
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        working-directory: src
+        run: dotnet test --no-restore --verbosity normal --framework ${{ matrix.test-framework }}
