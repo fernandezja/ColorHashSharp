@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net48;net481;net8.0;net9.0</TargetFrameworks>
     <RootNamespace>Fernandezja.ColorHashSharp</RootNamespace>
     <SignAssembly>false</SignAssembly>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <Description>Generate color based on the given string</Description>
     <Summary>Generate color based on the given string. C# port of ColorHash Javascript Library.</Summary>
     <Authors>Jose A. Fernandez</Authors>
-    <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+    <License>https://licenses.nuget.org/MIT</License>
     <PackageProjectUrl></PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/fernandezja/ColorHashSharp/master/assets/icon/ColorHashSharp-icon.png</PackageIconUrl>
+    <PackageIcon>ColorHashSharp-icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/fernandezja/ColorHashSharp</RepositoryUrl>
     <PackageTags>color hash string hsl hex hexadecimal</PackageTags>
     <PackageReleaseNotes>Generate color based on the given string. C# port of ColorHash Javascript Library. See https://github.com/fernandezja/ColorHashSharp</PackageReleaseNotes>
@@ -26,5 +26,7 @@
   <ItemGroup>
     <None Include="D:\dev\fernandezja\ColorHashSharp\src\ColorHashSharp\.editorconfig" />
   </ItemGroup>
-
+	<ItemGroup>
+		<None Include="Images\ColorHashSharp-icon.png" Pack="true" PackagePath=""/>
+	</ItemGroup>
 </Project>

@@ -11,8 +11,11 @@ using System.Threading.Tasks;
 namespace ColorHashSharp.Benchmarks
 {
     [MemoryDiagnoser]
-    [SimpleJob(RuntimeMoniker.Net60, baseline: true)]
-    [SimpleJob(RuntimeMoniker.Net70)]
+    [SimpleJob(RuntimeMoniker.Net48)]
+    [SimpleJob(RuntimeMoniker.Net481)]
+    [SimpleJob(RuntimeMoniker.Net80, baseline: true)]
+    [SimpleJob(RuntimeMoniker.Net90)]
+    [SimpleJob(RuntimeMoniker.Net10_0)]
     public class ColorHashSharpBenchmarks
     {
         private const string STRING_TO_HASH = "The Force will be with you always";
