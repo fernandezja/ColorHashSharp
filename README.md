@@ -1,9 +1,17 @@
 ﻿# ColorHashSharp
 Generate color based on the given string. C# port of [ColorHash Javascript Library](https://github.com/zenozeng/color-hash).
 
-[![NuGet version (ColorHashSharp)](https://img.shields.io/nuget/v/ColorHashSharp.svg?style=flat-square)](https://www.nuget.org/packages/ColorHashSharp/)
-![.NET Core](https://github.com/fernandezja/ColorHashSharp/workflows/.NET%20Core/badge.svg?branch=master)
-[![Build status](https://fernandezja.visualstudio.com/ColorHashSharp/_apis/build/status/ColorHashSharp-CI)](https://fernandezja.visualstudio.com/ColorHashSharp/_build/latest?definitionId=4)
+[![NuGet version (ColorHashSharp)](https://img.shields.io/nuget/v/ColorHashSharp.svg?style=flat-square)](https://www.nuget.org/packages/ColorHashSharp/) &nbsp; [![NuGet Downloads](https://img.shields.io/nuget/dt/ColorHashSharp.svg)](https://www.nuget.org/packages/Serilog/)
+
+[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml/badge.svg)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml)&nbsp; [![Build status](https://fernandezja.visualstudio.com/ColorHashSharp/_apis/build/status/ColorHashSharp-CI)](https://fernandezja.visualstudio.com/ColorHashSharp/_build/latest?definitionId=4)
+
+#### Status
+
+
+|Actions   	|master   	|develop   	|
+|---	|---	|---	|
+|CI   	|[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml/badge.svg?branch=master)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml)   	|[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml/badge.svg?branch=develop)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml)  	|
+
 
 #### Basic
 

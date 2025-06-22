@@ -46,5 +46,61 @@ namespace ColorHashSharp.Tests
         }
 
 
+        [Theory(DisplayName = "SetHue_SimpleValue")]
+        [InlineData(90)]
+        [InlineData(0.35)]
+        public void SetHue_SimpleValue(int value)
+        {
+            var options = new Fernandezja.ColorHashSharp.Options();
+            options.SetHue(value);
+
+            Assert.NotNull(options.HueRanges);
+            Assert.Single(options.HueRanges);
+            Assert.Equal(value, options.HueRanges[0].Min);
+            Assert.Equal(value, options.HueRanges[0].Max);
+        }
+
+
+        [Fact(DisplayName = "SetHue_ListValues")]     
+        public void SetHue_ListValues()
+        {
+            var options = new Fernandezja.ColorHashSharp.Options();
+
+            var hueValues = new List<(int Min, int Max)>();
+            hueValues.Add((90, 270));
+
+            options.SetHue(hueValues);
+
+            Assert.NotNull(options.HueRanges);
+            Assert.Single(options.HueRanges);
+            Assert.Equal(90, options.HueRanges[0].Min);
+            Assert.Equal(270, options.HueRanges[0].Max);
+        }
+
+        [Fact(DisplayName = "SetHue_ListValues2")]
+        public void SetHue_ListValues2()
+        {
+            var options = new Fernandezja.ColorHashSharp.Options();
+
+            var hueValues = new List<(int Min, int Max)>();
+            hueValues.Add((30, 90));
+            hueValues.Add((180, 210));
+            hueValues.Add((270, 285));
+
+            options.SetHue(hueValues);
+
+            Assert.NotNull(options.HueRanges);
+            Assert.Equal(3, options.HueRanges.Count);
+
+            Assert.Equal(30, options.HueRanges[0].Min);
+            Assert.Equal(90, options.HueRanges[0].Max);
+
+            Assert.Equal(180, options.HueRanges[1].Min);
+            Assert.Equal(210, options.HueRanges[1].Max);
+
+            Assert.Equal(270, options.HueRanges[2].Min);
+            Assert.Equal(285, options.HueRanges[2].Max);
+        }
+
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>ColorHashSharp</id>
+    <version>1.1.0</version>
+    <authors>Jose A. Fernandez</authors>
+    <owners>Jose A. Fernandez</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/fernandezja/ColorHashSharp</projectUrl>
+    <icon>ColorHashSharp-icon.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Generate color based on the given string. C# port of ColorHash Javascript Library.</description>
+    <summary>Generate color based on the given string. C# port of ColorHash Javascript Library.</summary>
+    <releaseNotes>Generate color based on the given string. C# port of ColorHash Javascript Library. See https://github.com/fernandezja/ColorHashSharp</releaseNotes>
+    <tags>color hash string hsl hex hexadecimal</tags>
+    <repository type="git" url="https://github.com/fernandezja/ColorHashSharp" />
+  </metadata>
+  <files>
+    <file src="bin/Release/netstandard2.0/ColorHashSharp.dll" target="lib/netstandard2.0/" />
+    <file src="bin/Release/netstandard2.1/ColorHashSharp.dll" target="lib/netstandard2.1/" />
+    <file src="bin/Release/net48/ColorHashSharp.dll" target="lib/net48/" />
+    <file src="bin/Release/net481/ColorHashSharp.dll" target="lib/net481/" />
+    <file src="bin/Release/net8.0/ColorHashSharp.dll" target="lib/net8.0/" />
+    <file src="bin/Release/net9.0/ColorHashSharp.dll" target="lib/net9.0/" />
+    <file src="assets/icon/ColorHashSharp-icon.png" target="." />
+  </files>
+</package>

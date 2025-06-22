@@ -18,6 +18,11 @@ namespace Fernandezja.ColorHashSharp
              _options = new Options();
         }
 
+        public ColorHash(Options options)
+        {
+            _options = options;
+        }
+
         #region IColorHash
 
         public string Build(string value)

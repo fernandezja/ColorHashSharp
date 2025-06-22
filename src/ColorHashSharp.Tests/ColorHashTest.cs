@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -40,6 +41,53 @@ namespace ColorHashSharp.Tests
             Assert.Equal(hExpected, result.H);
             Assert.Equal(sExpected, result.S);
             Assert.Equal(lExpected, result.L);
+        }
+
+
+        [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHSLWithCustomHueOption")]
+        [InlineData("yoda", 90, 90, 0.35, 0.35)]
+        [InlineData("yoda", 270, 270, 0.35, 0.35)]
+        public void BuildToHsl_ShouldCreateAColorInHSLWithCustomHueOption(
+                    string phrase, int hue,
+                    int hExpected, double sExpected, double lExpected)
+        {
+            var options = new Options();
+            options.SetHue(hue);
+
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash(options);
+
+            var result = colorHash.BuildToHsl(phrase);
+
+            Assert.NotNull(result);
+            Assert.Equal(hExpected, result.H);
+            Assert.Equal(sExpected, result.S);
+            Assert.Equal(lExpected, result.L);
+
+            
+        }
+
+
+
+        [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHexWithCustomHueOption")]
+        [InlineData("yoda", 90, "59783A")]
+        [InlineData("yoda", 210, "3A5978")]
+        [InlineData("yoda", 270, "593A78")]
+        [InlineData("yoda", 360, "783A3A")]
+        public void BuildToHsl_ShouldCreateAColorInHexWithCustomHueOption(
+                    string phrase, int hue, string hexExpected)
+        {
+            var options = new Options();
+            options.SetHue(hue);
+
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash(options);
+
+            var result = colorHash.BuildToHex(phrase);
+
+            Assert.NotNull(result);
+
+            Assert.Equal(hexExpected, result);
+
+
         }
 
         [Theory(DisplayName = "BuildToHex_ShouldCreateAColorInHex")]

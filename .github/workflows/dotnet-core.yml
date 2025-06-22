@@ -1,28 +1,31 @@
-name: .NET Core
+name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, develop ]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  build-and-test:   
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        test-framework: ['net9.0']
+        #test-framework: [ 'net8.0', 'net9.0', 'net48', 'net481' ]
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.101
-    - name: Install dependencies
-      working-directory: src
-      run: dotnet restore
-    - name: Build
-      working-directory: src
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      working-directory: src
-      run: dotnet test --no-restore --verbosity normal
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version:
+            9.0.x
+      - name: Install dependencies
+        working-directory: src
+        run: dotnet restore
+      - name: Build
+        working-directory: src
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        working-directory: src
+        run: dotnet test --no-restore --verbosity normal --framework ${{ matrix.test-framework }}
