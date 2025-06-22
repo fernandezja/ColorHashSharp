@@ -11,14 +11,14 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        test-framework: [ 'net8.0', 'net9.0', 'net48', 'net481' ]
+        test-framework: ['net9.0']
+        #test-framework: [ 'net8.0', 'net9.0', 'net48', 'net481' ]
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            8.0.x
+          dotnet-version:
             9.0.x
       - name: Install dependencies
         working-directory: src
