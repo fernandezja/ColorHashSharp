@@ -190,6 +190,107 @@ namespace ColorHashSharp.Tests
             Assert.Equal(197, result.B);
         }
 
+        [Fact(DisplayName = "Build_ShouldReturnHexString")]
+        public void Build_ShouldReturnHexString()
+        {
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+
+            var result = colorHash.Build("Hello World");
+
+            Assert.NotNull(result);
+            Assert.Equal("8796C5", result);
+        }
+
+        [Fact(DisplayName = "BuildToHsl_WithEmptyHueRanges_ShouldUseDefaultHueCalculation")]
+        public void BuildToHsl_WithEmptyHueRanges_ShouldUseDefaultHueCalculation()
+        {
+            var options = new Options();
+            // Ensure HueRanges is empty (default)
+            Assert.Empty(options.HueRanges);
+
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash(options);
+            var result = colorHash.BuildToHsl("test");
+
+            Assert.NotNull(result);
+            Assert.InRange(result.H, 0, 359);
+        }
+
+        [Fact(DisplayName = "BuildToHsl_WithMultipleHueRanges_ShouldUseHueRanges")]
+        public void BuildToHsl_WithMultipleHueRanges_ShouldUseHueRanges()
+        {
+            var options = new Options();
+            var hueValues = new List<(int Min, int Max)>();
+            hueValues.Add((30, 90));
+            hueValues.Add((180, 210));
+            options.SetHue(hueValues);
+
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash(options);
+            var result = colorHash.BuildToHsl("test");
+
+            Assert.NotNull(result);
+        }
+
+        [Theory(DisplayName = "BuildToColor_DifferentStrings_ShouldProduceDifferentColors")]
+        [InlineData("test1")]
+        [InlineData("test2")]
+        [InlineData("test3")]
+        public void BuildToColor_DifferentStrings_ShouldProduceDifferentColors(string input)
+        {
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+            var result = colorHash.BuildToColor(input);
+
+            Assert.NotNull(result);
+            Assert.Equal(255, result.A);
+        }
+
+        [Fact(DisplayName = "BuildToHex_EmptyString_ShouldGenerateColor")]
+        public void BuildToHex_EmptyString_ShouldGenerateColor()
+        {
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+            var result = colorHash.BuildToHex("");
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+        }
+
+        [Fact(DisplayName = "ColorHash_DefaultConstructor_ShouldInitialize")]
+        public void ColorHash_DefaultConstructor_ShouldInitialize()
+        {
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+            var result = colorHash.BuildToHex("test");
+
+            Assert.NotNull(result);
+        }
+
+        [Fact(DisplayName = "ColorHash_WithOptionsConstructor_ShouldInitialize")]
+        public void ColorHash_WithOptionsConstructor_ShouldInitialize()
+        {
+            var options = new Options();
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash(options);
+            var result = colorHash.BuildToHex("test");
+
+            Assert.NotNull(result);
+        }
+
+        [Theory(DisplayName = "BuildToHsl_VariousSaturationAndLightness_ShouldSelectFromArrays")]
+        [InlineData("a")]
+        [InlineData("aa")]
+        [InlineData("aaa")]
+        [InlineData("aaaa")]
+        [InlineData("aaaaa")]
+        [InlineData("aaaaaa")]
+        [InlineData("aaaaaaa")]
+        [InlineData("aaaaaaaa")]
+        [InlineData("aaaaaaaaa")]
+        public void BuildToHsl_VariousSaturationAndLightness_ShouldSelectFromArrays(string input)
+        {
+            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+            var result = colorHash.BuildToHsl(input);
+
+            Assert.NotNull(result);
+            Assert.Contains(result.S, new[] { 0.35, 0.5, 0.65 });
+            Assert.Contains(result.L, new[] { 0.35, 0.5, 0.65 });
+        }
 
     }
 }
