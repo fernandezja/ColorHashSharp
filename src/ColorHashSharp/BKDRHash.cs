@@ -33,11 +33,12 @@ namespace Fernandezja.ColorHashSharp
             // Make hash more sensitive for short string like 'a', 'b', 'c'
             var valueWithPadding = $"{value}{PADDING_CHAR}";
 
-            var valueUtf8 = ToUTF8(valueWithPadding);
+            // Convert to UTF8 bytes once, avoiding repeated conversions
+            var valueUtf8Bytes = Encoding.UTF8.GetBytes(valueWithPadding);
 
             var max = (Int64.MaxValue / (long)SEED);
 
-            for (int i = 0; i < valueUtf8.Length; i++)
+            for (int i = 0; i < valueUtf8Bytes.Length; i++)
             {
                 if (hash > max)
                 {
@@ -52,13 +53,11 @@ namespace Fernandezja.ColorHashSharp
                     Debug.WriteLine($" ");
                 }
 
-                var bytes = ToUTF8Bytes(valueUtf8[i].ToString());
+                Debug.WriteLine($"{valueUtf8Bytes[i]} byte value");
 
-                Debug.WriteLine($"{valueUtf8[i].ToString()} > {bytes[0]}");
+                hash = (hash * (long)SEED) + valueUtf8Bytes[i];
 
-                hash = (hash * (long)SEED) + bytes[0];
-
-                Debug.WriteLine($"{valueUtf8[i].ToString()} > {bytes[0]} > hash = {hash}");
+                Debug.WriteLine($"{valueUtf8Bytes[i]} > hash = {hash}");
             }
 
             return (ulong)hash;
@@ -80,11 +79,12 @@ namespace Fernandezja.ColorHashSharp
             // Make hash more sensitive for short string like 'a', 'b', 'c'
             var valueWithPadding = $"{value}{PADDING_CHAR}";
 
-            var valueUtf8 = ToUTF8(valueWithPadding);
+            // Convert to UTF8 bytes once, avoiding repeated conversions
+            var valueUtf8Bytes = Encoding.UTF8.GetBytes(valueWithPadding);
             
             var max = (JAVASCRIPT_MAX_SAFE_INTEGER / SEED);
 
-            for (int i = 0; i < valueUtf8.Length; i++)
+            for (int i = 0; i < valueUtf8Bytes.Length; i++)
             {
                 if (hash > max)
                 {
@@ -99,29 +99,17 @@ namespace Fernandezja.ColorHashSharp
                     Debug.WriteLine($" ");
                 }
 
-                var bytes = ToUTF8Bytes(valueUtf8[i].ToString());
+                Debug.WriteLine($"{valueUtf8Bytes[i]} byte value");
 
-                Debug.WriteLine($"{valueUtf8[i].ToString()} > {bytes[0]}");
+                hash = (hash * SEED) + valueUtf8Bytes[i];
 
-                hash = (hash * SEED) + bytes[0];
-
-                Debug.WriteLine($"{valueUtf8[i].ToString()} > {bytes[0]} > hash = {hash}");
+                Debug.WriteLine($"{valueUtf8Bytes[i]} > hash = {hash}");
             }
 
             return hash;
         }
 
-        private string ToUTF8(string value)
-        {
-            var bytes = Encoding.Default.GetBytes(value);
-            return Encoding.UTF8.GetString(bytes);
-        }
 
-        private byte[] ToUTF8Bytes(string value)
-        {
-            var bytes = Encoding.UTF8.GetBytes(value);
-            return bytes;
-        }
         
 
 
