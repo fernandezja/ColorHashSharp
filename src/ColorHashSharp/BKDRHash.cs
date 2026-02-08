@@ -42,22 +42,10 @@ namespace Fernandezja.ColorHashSharp
             {
                 if (hash > max)
                 {
-                    Debug.WriteLine($"hash > max");
-                    Debug.WriteLine($"  hash = {hash}");
-                    Debug.WriteLine($"  max = {max} >> ToUInt64(max) = {Convert.ToUInt64(max)}");
-                    Debug.WriteLine($"  seed2 = {SEED2}");
-
                     hash = (hash / (long)SEED2);
-
-                    Debug.WriteLine($"  new hash = {hash}");
-                    Debug.WriteLine($" ");
                 }
 
-                Debug.WriteLine($"{valueUtf8Bytes[i]} byte value");
-
                 hash = (hash * (long)SEED) + valueUtf8Bytes[i];
-
-                Debug.WriteLine($"{valueUtf8Bytes[i]} > hash = {hash}");
             }
 
             return (ulong)hash;
@@ -88,22 +76,10 @@ namespace Fernandezja.ColorHashSharp
             {
                 if (hash > max)
                 {
-                    Debug.WriteLine($"hash > max");
-                    Debug.WriteLine($"  hash = {hash}");
-                    Debug.WriteLine($"  max = {max} >> ToUInt64(max) = {Convert.ToUInt64(max)}");
-                    Debug.WriteLine($"  seed2 = {SEED2}");
-
                     hash = (hash / SEED2);
-
-                    Debug.WriteLine($"  new hash = {hash}");
-                    Debug.WriteLine($" ");
                 }
 
-                Debug.WriteLine($"{valueUtf8Bytes[i]} byte value");
-
                 hash = (hash * SEED) + valueUtf8Bytes[i];
-
-                Debug.WriteLine($"{valueUtf8Bytes[i]} > hash = {hash}");
             }
 
             return hash;

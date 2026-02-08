@@ -65,31 +65,21 @@ namespace Fernandezja.ColorHashSharp
         public static Color ToRgb2(double hue, double saturation, double lightness)
         {
             var h = hue / 360;
-            Debug.WriteLine($"h = {h}");
 
             var q = lightness < 0.5 
                     ? lightness * (1 + saturation) 
                     : lightness + saturation - (lightness * saturation);
 
-
             var p = 2.0 * lightness - q;
-
-            Debug.WriteLine($"q = {q}");
-            Debug.WriteLine($"p = {p}");
 
             var r = GetColor(h + 1 / 3.0, q, p);
             var g = GetColor(h, q, p);
             var b = GetColor(h - 1 / 3.0, q, p);
 
             return Color.FromArgb(alpha: 255, red: r, green: g, blue: b);
-
-
         }
 
         private static int GetColor(double color, double q, double p) {
-
-            Debug.WriteLine($" 1 color = {color}");
-
             if (color < 0)
             {
                 color++;
@@ -117,13 +107,7 @@ namespace Fernandezja.ColorHashSharp
                 color = p;
             }
 
-            Debug.WriteLine($" 2 color = {color}");
-
-            Debug.WriteLine($" ----------------------------");
-
             return (int)Math.Round(color * 255);
-
-            
         }
 
 
