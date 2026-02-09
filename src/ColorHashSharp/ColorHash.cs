@@ -71,11 +71,11 @@ namespace Fernandezja.ColorHashSharp
 
             hash = (hash / 360);
             var sIndex = (hash % (ulong)_options.S.Count);
-            s = (double)_options.S[(int)sIndex];
+            s = _options.S[(int)sIndex];
 
             hash = (hash / (ulong)_options.S.Count);
             var lIndex = (hash % (ulong)_options.L.Count);
-            l = (double)_options.L[(int)lIndex];
+            l = _options.L[(int)lIndex];
 
             var hslResult = new Hsl(h, s, l);
 

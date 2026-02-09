@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -37,7 +36,7 @@ namespace ColorHashSharp.Tests
         public void GetLS_ArrayValues()
         {
             var options = new Fernandezja.ColorHashSharp.Options();
-            var result = options.GetLS(new ArrayList() { 0.35, 0.35, 0.35});
+            var result = options.GetLS(new List<double>() { 0.35, 0.35, 0.35});
             Assert.NotNull(result);
             Assert.Equal(3, result.Count);
             Assert.Equal(0.35, result[0]);

@@ -1,5 +1,5 @@
 using Fernandezja.ColorHashSharp;
-using System.Collections;
+using System.Collections.Generic;
 using Xunit;
 
 namespace ColorHashSharp.Tests
@@ -23,7 +23,7 @@ namespace ColorHashSharp.Tests
         public void GetLS_WithNullParam_ShouldReturnDefaults()
         {
             var options = new Options();
-            var result = options.GetLS((ArrayList)null);
+            var result = options.GetLS((List<double>)null);
 
             Assert.NotNull(result);
             Assert.Equal(3, result.Count);
@@ -52,13 +52,13 @@ namespace ColorHashSharp.Tests
             var options = new Options();
 
             // Test that S and L contain the expected default values
-            Assert.Contains(0.35, options.S.ToArray());
-            Assert.Contains(0.5, options.S.ToArray());
-            Assert.Contains(0.65, options.S.ToArray());
+            Assert.Contains(0.35, options.S);
+            Assert.Contains(0.5, options.S);
+            Assert.Contains(0.65, options.S);
             
-            Assert.Contains(0.35, options.L.ToArray());
-            Assert.Contains(0.5, options.L.ToArray());
-            Assert.Contains(0.65, options.L.ToArray());
+            Assert.Contains(0.35, options.L);
+            Assert.Contains(0.5, options.L);
+            Assert.Contains(0.65, options.L);
         }
     }
 }
