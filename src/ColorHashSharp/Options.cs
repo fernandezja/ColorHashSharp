@@ -1,4 +1,5 @@
 ﻿using Fernandezja.ColorHashSharp.Entities;
+using Fernandezja.ColorHashSharp.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +22,11 @@ namespace Fernandezja.ColorHashSharp
         /// </summary>
         public List<double> L { get; set; }
 
+        /// <summary>
+        /// Custom hash function. If null, BKDRHash will be used by default.
+        /// </summary>
+        public IHashFunction HashFunction { get; set; }
+
         public Options()
         {
             //TODO: Get from options param
@@ -28,6 +34,7 @@ namespace Fernandezja.ColorHashSharp
             L = GetLS(new List<double>() { 0.35, 0.5, 0.65 });
 
             HueRanges = new List<Hue>();
+            HashFunction = null; // Will use default BKDRHash
         }
 
 

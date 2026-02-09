@@ -2,10 +2,11 @@
 using System.Diagnostics;
 using System.Numerics;
 using System.Text;
+using Fernandezja.ColorHashSharp.Interfaces;
 
 namespace Fernandezja.ColorHashSharp
 {
-    public class BKDRHash
+    public class BKDRHash : IHashFunction
     {
         private const char PADDING_CHAR = 'x';
 

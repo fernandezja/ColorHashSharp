@@ -11,7 +11,7 @@ namespace Fernandezja.ColorHashSharp
     public class ColorHash : IColorHash, IColorHashAlias
     {
         private readonly Options _options;
-        private readonly BKDRHash _hashGenerator;
+        private readonly IHashFunction _hashGenerator;
         private readonly ColorToHex _hexConverter;
 
         public ColorHash()
@@ -23,8 +23,9 @@ namespace Fernandezja.ColorHashSharp
 
         public ColorHash(Options options)
         {
-            _options = options;
-            _hashGenerator = new BKDRHash();
+            _options = options ?? throw new ArgumentNullException(nameof(options));
+            // Use custom hash function if provided, otherwise use default BKDRHash
+            _hashGenerator = _options.HashFunction ?? new BKDRHash();
             _hexConverter = new ColorToHex();
         }
 
