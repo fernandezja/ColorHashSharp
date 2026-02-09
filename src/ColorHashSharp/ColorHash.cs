@@ -10,17 +10,22 @@ namespace Fernandezja.ColorHashSharp
 {
     public class ColorHash : IColorHash, IColorHashAlias
     {
-
-        private Options _options;
+        private readonly Options _options;
+        private readonly BKDRHash _hashGenerator;
+        private readonly ColorToHex _hexConverter;
 
         public ColorHash()
         {
              _options = new Options();
+             _hashGenerator = new BKDRHash();
+             _hexConverter = new ColorToHex();
         }
 
         public ColorHash(Options options)
         {
             _options = options;
+            _hashGenerator = new BKDRHash();
+            _hexConverter = new ColorToHex();
         }
 
         #region IColorHash
@@ -33,14 +38,14 @@ namespace Fernandezja.ColorHashSharp
         public Color BuildToColor(string value)
         {
             var hsl = BuildToHsl(value);
-            var color = (new ColorToRgb()).ToRgb(hsl);
+            var color = ColorToRgb.ToRgb(hsl.H, hsl.S, hsl.L);
             return color;
         }
 
         public string BuildToHex(string value)
         {
             var color = BuildToColor(value);
-            var hex = (new ColorToHex()).BuildToHex(color);
+            var hex = _hexConverter.BuildToHex(color);
             return hex;
         }
 
@@ -48,16 +53,13 @@ namespace Fernandezja.ColorHashSharp
         {
             double h, s, l;
 
-            var hashGenerator = new BKDRHash();
-
-            var hash = hashGenerator.Generate(value);
+            var hash = _hashGenerator.Generate(value);
 
             if (_options.HueRanges.Count > 0)
             {
                 var rangeIndex = hash % Convert.ToUInt64(_options.HueRanges.Count);
 
-                //TODO: Convert int? prevent error
-                var hueValue = (Hue)_options.HueRanges[(int)rangeIndex];
+                var hueValue = _options.HueRanges[(int)rangeIndex];
 
                 var hueResolution = Convert.ToUInt64(727);
                 h = ((hash / Convert.ToUInt64(_options.HueRanges.Count)) % hueResolution)
