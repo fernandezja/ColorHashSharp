@@ -59,3 +59,15 @@ to reproduce the historical ColorHashSharp colors with the same palettes and
 hue ranges. Applications upgrading from NuGet 1.1.0 must recompile and update
 `Options.S`, `Options.L`, and protected `GetLS` usage from `ArrayList` to
 `List<double>`.
+
+#### Options and null inputs in 2.0
+
+`ColorHash` copies the saturation and lightness palettes and the hue bounds
+at construction. To apply changes to `Options`, create a new `ColorHash`
+instance. A custom hash instance is used as supplied.
+
+`S` and `L` require at least one finite value between 0 and 1, inclusive.
+An empty `HueRanges` list uses the default hue calculation. Each range
+requires `0 <= Min <= Max <= 360`. Invalid settings raise `ArgumentException`
+at construction. A null input string is treated as empty, including when
+passed to a custom hash.
