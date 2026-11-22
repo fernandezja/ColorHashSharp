@@ -97,5 +97,9 @@ another implementation.
 var colorHash1 = new ColorHash();
 var colorHash2 = new ColorHash(new Options()); // Also uses SHA-256
 var javaScriptBkdr = new ColorHash(new Options { HashFunction = new JavaScriptBkdrHash() });
-var historical = new ColorHash(new Options { HashFunction = new BKDRHash() });
+var historical = new ColorHash(new Options
+{
+    UseJavaScriptCompatibility = false,
+    HashFunction = new BKDRHash()
+});
 ```

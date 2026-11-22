@@ -6,6 +6,16 @@ namespace ColorHashSharp.Tests
 {
     public class ColorToHexTest
     {
+        [Theory]
+        [InlineData(255, 64, 0, "#ff4000")]
+        [InlineData(1, 15, 16, "#010f10")]
+        public void BuildToHex_CssFormatMatchesUpstream(int red, int green, int blue, string expected)
+        {
+            var converter = new ColorToHex();
+
+            Assert.Equal(expected, converter.BuildToHex(Color.FromArgb(red, green, blue), cssFormat: true));
+        }
+
         [Fact(DisplayName = "BuildToHex_RedColor_ShouldReturnFF0000")]
         public void BuildToHex_RedColor_ShouldReturnFF0000()
         {

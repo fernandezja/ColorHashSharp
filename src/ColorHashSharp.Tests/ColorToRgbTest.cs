@@ -10,12 +10,22 @@ namespace ColorHashSharp.Tests
 {
     public class ColorToRgbTest
     {
+        [Theory]
+        [InlineData(0, 1, 0.5, 255, 0, 0)]
+        [InlineData(120, 1, 0.75, 128, 255, 128)]
+        [InlineData(240, 1, 0.25, 0, 0, 128)]
+        [InlineData(330, 1, 0.75, 255, 128, 191)]
+        public void ToRgb_JavaScriptRoundingMatchesUpstream(
+            double hue, double saturation, double lightness, int red, int green, int blue)
+        {
+            var result = ColorToRgb.ToRgb(hue, saturation, lightness, MidpointRounding.AwayFromZero);
+
+            Assert.Equal(Color.FromArgb(red, green, blue), result);
+        }
 
         [Fact(DisplayName = "ToRgb_HslToRgb")]
         public void ToRgb_HslToRgb()
         {
-            //HSL from ""Hello World" 255, 0.35, 0.65
-            //double hue, double saturation, double lightness
             var result = ColorToRgb.ToRgb(225, 0.35, 0.65);
 
             Assert.Equal(135, result.R);

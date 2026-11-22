@@ -64,9 +64,9 @@ namespace ColorHashSharp.Tests
         }
 
         [Theory]
-        [InlineData(0, 0, 0, "000000")]
-        [InlineData(90, 1, 1, "FFFFFF")]
-        [InlineData(360, 1, 0.5, "FF0000")]
+        [InlineData(0, 0, 0, "#000000")]
+        [InlineData(90, 1, 1, "#ffffff")]
+        [InlineData(360, 1, 0.5, "#ff0000")]
         public void Constructor_AcceptsPaletteEndpointsAndFixedHues(
             int hue, double saturation, double lightness, string expectedHex)
         {

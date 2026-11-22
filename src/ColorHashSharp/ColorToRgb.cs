@@ -64,6 +64,11 @@ namespace Fernandezja.ColorHashSharp
         /// <returns></returns>
         public static Color ToRgb2(double hue, double saturation, double lightness)
         {
+            return ToRgb(hue, saturation, lightness, MidpointRounding.ToEven);
+        }
+
+        internal static Color ToRgb(double hue, double saturation, double lightness, MidpointRounding rounding)
+        {
             var h = hue / 360;
 
             var q = lightness < 0.5 
@@ -72,14 +77,14 @@ namespace Fernandezja.ColorHashSharp
 
             var p = 2.0 * lightness - q;
 
-            var r = GetColor(h + 1 / 3.0, q, p);
-            var g = GetColor(h, q, p);
-            var b = GetColor(h - 1 / 3.0, q, p);
+            var r = GetColor(h + 1 / 3.0, q, p, rounding);
+            var g = GetColor(h, q, p, rounding);
+            var b = GetColor(h - 1 / 3.0, q, p, rounding);
 
             return Color.FromArgb(alpha: 255, red: r, green: g, blue: b);
         }
 
-        private static int GetColor(double color, double q, double p) {
+        private static int GetColor(double color, double q, double p, MidpointRounding rounding) {
             if (color < 0)
             {
                 color++;
@@ -107,7 +112,7 @@ namespace Fernandezja.ColorHashSharp
                 color = p;
             }
 
-            return (int)Math.Round(color * 255);
+            return (int)Math.Round(color * 255, rounding);
         }
 
 

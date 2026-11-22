@@ -27,36 +27,45 @@ var colorHash = new ColorHash();
 var hsl = colorHash.Hsl("Hello World");
 
 Debug.WriteLine($"  H = {hsl.H} | S = {hsl.S} | L = {hsl.L}");
-//  H = 233 | S = 0.35 | L = 0.5
+//  H = 233 | S = 0.5 | L = 0.65
 
 
 //RGB (return System.Drawing.Color object)
 var color = colorHash.Rgb("Hello World");
 
 Debug.WriteLine($"   R= {color.R} | G = {color.G} | B = {color.B}");
-//  R = 83 | G = 93 | B = 172
+//  R = 121 | G = 132 | B = 210
 
 //Hex (return string)
 var hex = colorHash.Hex("Hello World");
 
 Debug.WriteLine($"  hex = {hex}");
-//  hex = 535DAC
+//  hex = #7984d2
 ```
 
 #### Hash selection and migration to 2.0
 
 The default hash uses the first four bytes of SHA-256 over UTF-8 as an unsigned
 big-endian integer, matching the hash used by JavaScript color-hash 2.0.2.
-Color generation still uses the port's HSL calculation and HEX format.
+`Options.UseJavaScriptCompatibility` defaults to `true` and matches
+JavaScript's HSL calculation, RGB rounding, and `#rrggbb` format. Set it to
+`false` to use the port's historical color calculation and `RRGGBB` format.
 
 ```csharp
 var javaScriptBkdr = new ColorHash(new Options { HashFunction = new JavaScriptBkdrHash() });
-var historical = new ColorHash(new Options { HashFunction = new BKDRHash() });
+var historical = new ColorHash(new Options
+{
+    UseJavaScriptCompatibility = false,
+    HashFunction = new BKDRHash()
+});
 ```
 
-`JavaScriptBkdrHash` matches the JavaScript `hash: 'bkdr'` hash. Use `BKDRHash`
-to reproduce the historical ColorHashSharp colors with the same palettes and
-hue ranges. Applications upgrading from NuGet 1.1.0 must recompile and update
+`JavaScriptBkdrHash` matches the JavaScript `hash: 'bkdr'` hash. Custom hashes
+still use `IHashFunction`. In compatibility mode, their unsigned results
+are converted to JavaScript-style double-precision numbers for color selection.
+Use the historical configuration above with the same palettes and hue ranges
+to reproduce historical ColorHashSharp colors. Applications upgrading from
+NuGet 1.1.0 must recompile and update
 `Options.S`, `Options.L`, and protected `GetLS` usage from `ArrayList` to
 `List<double>`.
 

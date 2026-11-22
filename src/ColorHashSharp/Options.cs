@@ -27,6 +27,12 @@ namespace Fernandezja.ColorHashSharp
         /// </summary>
         public IHashFunction HashFunction { get; set; }
 
+        /// <summary>
+        /// Uses the HSL calculation, RGB rounding, and CSS hex format of color-hash 2.0.2.
+        /// Set to false to use the historical port's color calculation and format.
+        /// </summary>
+        public bool UseJavaScriptCompatibility { get; set; } = true;
+
         public Options()
         {
             //TODO: Get from options param
