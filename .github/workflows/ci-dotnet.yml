@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (${{ matrix.os }}, ${{ matrix.framework }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        framework: [net10.0, net11.0]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET SDKs
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            10.0.x
+            11.0.x
+
+      - name: Restore library
+        run: dotnet restore src/ColorHashSharp/ColorHashSharp.csproj
+
+      - name: Build library
+        run: dotnet build src/ColorHashSharp/ColorHashSharp.csproj --configuration Release --framework ${{ matrix.framework }} --no-restore
+
+  test:
+    name: Test (${{ matrix.os }}, ${{ matrix.framework }})
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        framework: [net10.0, net11.0]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET SDKs
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            10.0.x
+            11.0.x
+
+      - name: Restore tests
+        run: dotnet restore src/ColorHashSharp.Tests/ColorHashSharp.Tests.csproj
+
+      - name: Test
+        run: dotnet test src/ColorHashSharp.Tests/ColorHashSharp.Tests.csproj --configuration Release --framework ${{ matrix.framework }} --no-restore --verbosity normal

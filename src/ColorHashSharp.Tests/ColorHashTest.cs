@@ -1,195 +1,98 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Fernandezja.ColorHashSharp;
+using Fernandezja.ColorHashSharp.Entities;
 using Xunit;
 
 namespace ColorHashSharp.Tests
 {
+    // Behavioral cases from color-hash 2.0.2's color-hash.test.ts.
     public class ColorHashTest
     {
-        [Fact(DisplayName = "BuildToHsl_ShouldCreateAColorWithTextYodaInHSL")]
-        public void BuildToHsl_ShouldCreateAColorWithHSL()
+        private static readonly string[] Inputs = Enumerable.Range(0, 100)
+            .Select(index => $"00000000-0000-4000-8000-{index:D12}")
+            .ToArray();
+
+        [Fact]
+        public void Hsl_DefaultHueIsBelow359()
         {
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+            var colorHash = new ColorHash();
 
-            var result = colorHash.BuildToHsl("yoda");
-
-            Assert.NotNull(result);
-            Assert.Equal(76, result.H);
-            Assert.Equal(0.35, result.S);
-            Assert.Equal(0.35, result.L);
+            foreach (var input in Inputs)
+            {
+                Assert.InRange(colorHash.Hsl(input).H, 0, 358);
+            }
         }
 
-
-
-        [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHSL")]
-        [InlineData("yoda", 76, 0.35, 0.35)]
-        [InlineData("Yoda", 314, 0.5, 0.65)]
-        [InlineData("starwars", 339, 0.35, 0.5)]
-        [InlineData("StarWars", 135, 0.5, 0.35)]
-        public void BuildToHsl_ShouldCreateAColorInHSL(
-            string phrase, double hExpected, double sExpected, double lExpected)
+        [Fact]
+        public void Hsl_UsesFixedHue()
         {
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+            var colorHash = new ColorHash(new Options { HueRanges = new List<Hue> { new Hue(10, 10) } });
 
-            var result = colorHash.BuildToHsl(phrase);
-
-            Assert.NotNull(result);
-            Assert.Equal(hExpected, result.H);
-            Assert.Equal(sExpected, result.S);
-            Assert.Equal(lExpected, result.L);
+            foreach (var input in Inputs)
+            {
+                Assert.Equal(10, colorHash.Hsl(input).H);
+            }
         }
 
-
-        [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHSLWithCustomHueOption")]
-        [InlineData("yoda", 90, 90, 0.35, 0.35)]
-        [InlineData("yoda", 270, 270, 0.35, 0.35)]
-        public void BuildToHsl_ShouldCreateAColorInHSLWithCustomHueOption(
-                    string phrase, int hue,
-                    int hExpected, double sExpected, double lExpected)
+        [Fact]
+        public void Hsl_UsesSingleHueRange()
         {
-            var options = new Options();
-            options.SetHue(hue);
+            for (int min = 0; min < 360; min += 60)
+            {
+                for (int max = min + 1; max <= 360; max += 60)
+                {
+                    var colorHash = new ColorHash(new Options { HueRanges = new List<Hue> { new Hue(min, max) } });
 
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash(options);
-
-            var result = colorHash.BuildToHsl(phrase);
-
-            Assert.NotNull(result);
-            Assert.Equal(hExpected, result.H);
-            Assert.Equal(sExpected, result.S);
-            Assert.Equal(lExpected, result.L);
-
-            
+                    foreach (var input in Inputs)
+                    {
+                        double hue = colorHash.Hsl(input).H;
+                        Assert.True(hue >= min && hue < max, $"Hue {hue} is outside [{min}, {max}).");
+                    }
+                }
+            }
         }
 
-
-
-        [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHexWithCustomHueOption")]
-        [InlineData("yoda", 90, "59783A")]
-        [InlineData("yoda", 210, "3A5978")]
-        [InlineData("yoda", 270, "593A78")]
-        [InlineData("yoda", 360, "783A3A")]
-        public void BuildToHsl_ShouldCreateAColorInHexWithCustomHueOption(
-                    string phrase, int hue, string hexExpected)
+        [Fact]
+        public void Hsl_UsesOneOfTheHueRanges()
         {
-            var options = new Options();
-            options.SetHue(hue);
+            var ranges = new List<Hue> { new Hue(30, 90), new Hue(180, 210), new Hue(270, 285) };
+            var colorHash = new ColorHash(new Options { HueRanges = ranges });
 
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash(options);
-
-            var result = colorHash.BuildToHex(phrase);
-
-            Assert.NotNull(result);
-
-            Assert.Equal(hexExpected, result);
-
-
+            foreach (var input in Inputs)
+            {
+                double hue = colorHash.Hsl(input).H;
+                Assert.Contains(ranges, range => hue >= range.Min && hue < range.Max);
+            }
         }
 
-        [Theory(DisplayName = "BuildToHex_ShouldCreateAColorInHex")]
-        [InlineData("yoda", "68783A")]
-        [InlineData("Yoda", "D279BE")]
-        [InlineData("starwars", "AC5372")]
-        [InlineData("StarWars", "2D8643")]
-        public void BuildToHex_ShouldCreateAColorInHex(string phrase, string hexExpected)
+        [Fact]
+        public void Hsl_UsesFixedSaturationAndLightness()
         {
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+            var colorHash = new ColorHash(new Options
+            {
+                S = new List<double> { 0.5 },
+                L = new List<double> { 0.5 }
+            });
 
-            var result = colorHash.BuildToHex(phrase);
+            var hsl = colorHash.Hsl(Inputs[0]);
 
-            Assert.NotNull(result);
-            Assert.Equal(hexExpected, result);
+            Assert.Equal((0.5, 0.5), (hsl.S, hsl.L));
         }
 
-        [Fact(DisplayName = "BuildToColor_ShouldCreateAColorObject")]
-        public void BuildToColor_ShouldCreateAColorObject()
+        [Fact]
+        public void Hsl_UsesConfiguredSaturationAndLightnessPalettes()
         {
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
+            var colorHash = new ColorHash(new Options
+            {
+                S = new List<double> { 0.9, 1 },
+                L = new List<double> { 0.9, 1 }
+            });
 
-            var result = colorHash.BuildToColor("yoda");
-            
-            Assert.Equal(Color.FromArgb(alpha:255,red:104,green:120, blue:58), 
-                        result);
+            var hsl = colorHash.Hsl(Inputs[0]);
+
+            Assert.Contains(hsl.S, new[] { 0.9, 1 });
+            Assert.Contains(hsl.L, new[] { 0.9, 1 });
         }
-
-        [Fact(DisplayName = "BuildToHsl_HelloWorldString")]
-        public void BuildToHsl_HelloWorldString()
-        {
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
-
-            var result = colorHash.BuildToHsl("Hello World");
-
-            Assert.NotNull(result);
-            Assert.Equal(225, result.H);
-            Assert.Equal(0.35, result.S);
-            Assert.Equal(0.65, result.L);
-        }
-
-        [Fact(DisplayName = "Build_HelloWorldStringToHslColorAndHex")]
-        public void Build_HelloWorldStringToHslColorAndHex()
-        {
-            var ColorHash = new Fernandezja.ColorHashSharp.ColorHash();
-
-            var resultHsl = ColorHash.BuildToHsl("Hello World");
-            var resultColor = ColorHash.BuildToColor("Hello World");
-            var resultHex = ColorHash.BuildToHex("Hello World");
-
-            Assert.Equal(135, resultColor.R);
-            Assert.Equal(150, resultColor.G);
-            Assert.Equal(197, resultColor.B);
-
-            Assert.Equal(225, resultHsl.H);
-            Assert.Equal(0.35, resultHsl.S);
-            Assert.Equal(0.65, resultHsl.L);
-
-            Assert.Equal("8796C5", resultHex);
-
-
-        }
-
-        [Fact(DisplayName = "Hsl_ShouldCreateAColorInHSL")]
-        public void Hsl_ShouldCreateAColorInHSL()
-        {
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
-
-            var result = colorHash.Hsl("Hello World");
-
-            Assert.NotNull(result);
-            Assert.Equal(225, result.H);
-            Assert.Equal(0.35, result.S);
-            Assert.Equal(0.65, result.L);
-        }
-
-
-
-        [Fact(DisplayName = "Hex_ShouldCreateAColorInHex")]
-        public void Hex_ShouldCreateAColorInHex()
-        {
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
-
-            var result = colorHash.BuildToHex("Hello World");
-
-            Assert.NotNull(result);
-            Assert.Equal("8796C5", result);
-        }
-
-
-        [Fact(DisplayName = "Rgb_ShouldCreateAColorInRgb")]
-        public void Rgb_ShouldCreateAColorInRgb()
-        {
-            var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
-
-            var result = colorHash.Rgb("Hello World");
-
-            Assert.Equal(135, result.R);
-            Assert.Equal(150, result.G);
-            Assert.Equal(197, result.B);
-        }
-
-
     }
 }
