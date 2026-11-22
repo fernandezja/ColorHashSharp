@@ -1,0 +1,107 @@
+name: Publish to NuGet
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    if: ${{ !github.event.deleted }}
+    runs-on: windows-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Validate release tag
+        id: version
+        shell: pwsh
+        run: |
+          $number = '(?:0|[1-9][0-9]*)'
+          $identifier = "(?:$number|[0-9]*[A-Za-z-][0-9A-Za-z-]*)"
+          if ($env:GITHUB_REF_NAME -cnotmatch "\Av(?<version>$number\.$number\.$number(?:-$identifier(?:\.$identifier)*)?)\z") {
+            throw 'Use a SemVer tag without build metadata, such as v2.0.0 or v2.0.0-rc.1.'
+          }
+          "version=$($Matches.version)" >> $env:GITHUB_OUTPUT
+
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET SDKs
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            10.0.x
+            11.0.x
+
+      - name: Restore, build and test
+        shell: pwsh
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $tests = 'src/ColorHashSharp.Tests/ColorHashSharp.Tests.csproj'
+          $library = 'src/ColorHashSharp/ColorHashSharp.csproj'
+          dotnet restore $tests
+          dotnet build $library --configuration Release --no-restore -p:Version=$env:RELEASE_VERSION -p:GeneratePackageOnBuild=false
+          dotnet test $tests --configuration Release --no-restore -p:Version=$env:RELEASE_VERSION -p:GeneratePackageOnBuild=false
+
+      - name: Pack
+        shell: pwsh
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: dotnet pack src/ColorHashSharp/ColorHashSharp.csproj --configuration Release --no-build --output artifacts -p:Version=$env:RELEASE_VERSION -p:PackageVersion=$env:RELEASE_VERSION
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package
+          path: artifacts/ColorHashSharp.${{ steps.version.outputs.version }}.nupkg
+          if-no-files-found: error
+
+  publish:
+    needs: package
+    runs-on: ubuntu-latest
+    environment: nuget
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Check NuGet configuration
+        shell: bash
+        env:
+          NUGET_USER: ${{ vars.NUGET_USER }}
+        run: |
+          if [[ -z "$NUGET_USER" ]]; then
+            echo "::error::Set the NUGET_USER variable in the nuget environment."
+            exit 1
+          fi
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 11.0.x
+
+      - name: Download package
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-package
+          path: artifacts
+
+      - name: Authenticate to NuGet.org
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ vars.NUGET_USER }}
+
+      - name: Publish package
+        shell: bash
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+          RELEASE_VERSION: ${{ needs.package.outputs.version }}
+        run: dotnet nuget push "artifacts/ColorHashSharp.${RELEASE_VERSION}.nupkg" --source https://api.nuget.org/v3/index.json --api-key "$NUGET_API_KEY"

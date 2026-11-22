@@ -82,3 +82,18 @@ An empty `HueRanges` list uses the default hue calculation. Each range
 requires `0 <= Min <= Max <= 360`. Invalid settings raise `ArgumentException`
 at construction. A null input string is treated as empty, including when
 passed to a custom hash.
+
+### Publishing to NuGet.org
+
+[Publish to NuGet](.github/workflows/publish-nuget.yml) builds and tests each release before packing it. The package version comes from the tag without its leading `v`. Use a stable tag such as `v2.0.0` or a prerelease tag such as `v2.0.0-rc.1`. Omit build metadata (`+...`) because NuGet.org normalizes it out of version identifiers.
+
+1. In GitHub, open **Settings → Environments → nuget**. Under **Environment variables**, set `NUGET_USER` to the NuGet.org profile name `fernandezja`. Under **Deployment branches and tags**, select **Selected branches and tags** and add a **Tag** rule for `v*.*.*`.
+2. On [NuGet.org → Trusted Publishing](https://www.nuget.org/account/trustedpublishing), add a GitHub Actions policy named `ColorHashSharp GitHub Actions` for the package owner. Set **Repository Owner** to `fernandezja`, **Repository** to `ColorHashSharp`, **Workflow File** to `publish-nuget.yml`, and **Environment** to `nuget`. Select **Push only new package versions** and enter `ColorHashSharp` under **Glob Patterns and Packages**. The workflow exchanges its OIDC token for a short-lived API key when the package is ready to publish.
+3. After the workflow is merged, tag the release commit from `main` with an unused package version and push the tag. For example:
+
+   ```sh
+   git tag -a v2.0.0 -m "ColorHashSharp 2.0.0"
+   git push origin v2.0.0
+   ```
+
+   Check **Actions → Publish to NuGet** for the result, then verify the version on the [ColorHashSharp package page](https://www.nuget.org/packages/ColorHashSharp/).
