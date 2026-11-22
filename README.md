@@ -5,15 +5,15 @@ Generate color based on the given string. C# port of [ColorHash Javascript Libra
 
 
 
-[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml/badge.svg)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml)&nbsp; [![Build status](https://fernandezja.visualstudio.com/ColorHashSharp/_apis/build/status/ColorHashSharp-CI)](https://fernandezja.visualstudio.com/ColorHashSharp/_build/latest?definitionId=4)
+[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml/badge.svg)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml)&nbsp; [![Build status](https://fernandezja.visualstudio.com/ColorHashSharp/_apis/build/status/ColorHashSharp-CI)](https://fernandezja.visualstudio.com/ColorHashSharp/_build/latest?definitionId=4)
 
 
 #### Status
 
 
-|Actions   	|master   	|develop   	|
+|Actions   	|main   	|develop   	|
 |---	|---	|---	|
-|CI   	|[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml/badge.svg?branch=master)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml)   	|[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml/badge.svg?branch=develop)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml)  	|
+|CI   	|[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml/badge.svg?branch=main)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/dotnet-core.yml)   	|[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml/badge.svg?branch=develop)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml)  	|
 
 
 #### Basic
