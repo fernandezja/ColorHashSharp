@@ -8,7 +8,18 @@ jobs:
     docker:
       - image: "mcr.microsoft.com/dotnet/sdk:<< parameters.dotnet-version >>"
     steps:
-      - checkout
+      - run:
+          name: Check out the GitHub commit over HTTPS
+          command: |
+            if ! command -v git >/dev/null 2>&1; then
+              apt-get update
+              apt-get install -y --no-install-recommends git
+            fi
+
+            git init --quiet
+            git remote add origin "https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
+            GIT_TERMINAL_PROMPT=0 git fetch --depth=1 origin "$CIRCLE_SHA1"
+            git checkout --detach FETCH_HEAD
       - run:
           name: Build and test in Release
           command: >-
