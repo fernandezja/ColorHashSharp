@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ColorHashSharp.Benchmarks/ColorHashSharp.Benchmarks.csproj" />
+  <Project Path="ColorHashSharp.Tests/ColorHashSharp.Tests.csproj" />
+  <Project Path="ColorHashSharp/ColorHashSharp.csproj" />
+</Solution>
