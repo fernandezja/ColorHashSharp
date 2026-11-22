@@ -23,7 +23,7 @@ namespace Fernandezja.ColorHashSharp
         public List<double> L { get; set; }
 
         /// <summary>
-        /// Custom hash function. If null, BKDRHash will be used by default.
+        /// Custom hash function. If null, SHA-256 is used by default.
         /// </summary>
         public IHashFunction HashFunction { get; set; }
 
@@ -34,7 +34,6 @@ namespace Fernandezja.ColorHashSharp
             L = GetLS(new List<double>() { 0.35, 0.5, 0.65 });
 
             HueRanges = new List<Hue>();
-            HashFunction = null; // Will use default BKDRHash
         }
 
 

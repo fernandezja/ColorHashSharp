@@ -43,18 +43,15 @@ namespace ColorHashSharp.Tests
             var hex = colorHash.Hex("Hello World");
 
             // Assert
-            Assert.NotNull(hsl);
-            Assert.NotNull(rgb);
-            Assert.NotNull(hex);
-            Assert.True(hsl.H >= 0 && hsl.H < 360);
-            Assert.True(hsl.S >= 0 && hsl.S <= 1);
-            Assert.True(hsl.L >= 0 && hsl.L <= 1);
+            Assert.Equal((334d, 0.65, 0.35), (hsl.H, hsl.S, hsl.L));
+            Assert.Equal((147, 31, 82), ((int)rgb.R, (int)rgb.G, (int)rgb.B));
+            Assert.Equal("931F52", hex);
         }
 
         [Fact(DisplayName = "CustomHashFunction_ShouldProduceDifferentResults")]
         public void CustomHashFunction_ShouldProduceDifferentResults()
         {
-            // Arrange - Default BKDRHash
+            // Arrange - Default SHA-256
             var defaultColorHash = new ColorHash();
             var defaultHex = defaultColorHash.Hex("Test");
 
@@ -90,19 +87,22 @@ namespace ColorHashSharp.Tests
             Assert.Equal(hex1, hex2);
         }
 
-        [Fact(DisplayName = "Options_WithoutCustomHash_ShouldUseDefaultBKDRHash")]
-        public void Options_WithoutCustomHash_ShouldUseDefaultBKDRHash()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void Constructors_WithoutCustomHash_ShouldUseSha256(bool passOptions)
         {
-            // Arrange
-            var options = new Options(); // No custom hash
-            var colorHash = new ColorHash(options);
+            var colorHash = passOptions ? new ColorHash(new Options()) : new ColorHash();
 
-            // Act
-            var hex = colorHash.Hex("Hello World");
+            Assert.Equal("535DAC", colorHash.Hex("Hello World"));
+        }
 
-            // Assert - Should produce expected result from BKDRHash
-            Assert.NotNull(hex);
-            Assert.Equal(6, hex.Length);
+        [Fact]
+        public void Options_CanSelectJavaScriptBkdr()
+        {
+            var colorHash = new ColorHash(new Options { HashFunction = new JavaScriptBkdrHash() });
+
+            Assert.Equal("40BF51", colorHash.Hex("é"));
         }
     }
 }

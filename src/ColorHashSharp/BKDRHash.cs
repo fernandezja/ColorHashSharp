@@ -55,7 +55,7 @@ namespace Fernandezja.ColorHashSharp
 
 
         /// <summary>
-        /// BKDR Hash (modified version). Idem  original code.
+        /// Historical ColorHashSharp BKDR hash over UTF-8 bytes.
         /// https://github.com/zenozeng/color-hash/blob/master/lib/bkdr-hash.js
         /// Example values nodejs https://repl.it/@Jose_AA/BKDR-Hash
         /// </summary>

@@ -73,8 +73,8 @@ public class MD5HashFunction : IHashFunction
 var options = new Options
 {
     HashFunction = new MD5HashFunction(),
-    Lightness = new List<double> { 0.5 },
-    Saturation = new List<double> { 0.7 }
+    L = new List<double> { 0.5 },
+    S = new List<double> { 0.7 }
 };
 
 var colorHash = new ColorHash(options);
@@ -90,10 +90,12 @@ var color = colorHash.Hex("SecureString");
 
 ## Default Behavior
 
-If no custom hash function is specified, ColorHashSharp uses the default BKDRHash algorithm:
+ColorHashSharp uses SHA-256 by default. Set `Options.HashFunction` to select
+another implementation.
 
 ```csharp
-// These are equivalent:
 var colorHash1 = new ColorHash();
-var colorHash2 = new ColorHash(new Options()); // Uses default BKDRHash
+var colorHash2 = new ColorHash(new Options()); // Also uses SHA-256
+var javaScriptBkdr = new ColorHash(new Options { HashFunction = new JavaScriptBkdrHash() });
+var historical = new ColorHash(new Options { HashFunction = new BKDRHash() });
 ```

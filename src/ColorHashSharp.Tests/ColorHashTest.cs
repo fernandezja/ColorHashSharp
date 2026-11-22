@@ -18,18 +18,18 @@ namespace ColorHashSharp.Tests
             var result = colorHash.BuildToHsl("yoda");
 
             Assert.NotNull(result);
-            Assert.Equal(76, result.H);
-            Assert.Equal(0.35, result.S);
-            Assert.Equal(0.35, result.L);
+            Assert.Equal(323, result.H);
+            Assert.Equal(0.65, result.S);
+            Assert.Equal(0.65, result.L);
         }
 
 
 
         [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHSL")]
-        [InlineData("yoda", 76, 0.35, 0.35)]
-        [InlineData("Yoda", 314, 0.5, 0.65)]
-        [InlineData("starwars", 339, 0.35, 0.5)]
-        [InlineData("StarWars", 135, 0.5, 0.35)]
+        [InlineData("yoda", 323, 0.65, 0.65)]
+        [InlineData("Yoda", 53, 0.5, 0.5)]
+        [InlineData("starwars", 185, 0.65, 0.5)]
+        [InlineData("StarWars", 342, 0.5, 0.5)]
         public void BuildToHsl_ShouldCreateAColorInHSL(
             string phrase, double hExpected, double sExpected, double lExpected)
         {
@@ -45,8 +45,8 @@ namespace ColorHashSharp.Tests
 
 
         [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHSLWithCustomHueOption")]
-        [InlineData("yoda", 90, 90, 0.35, 0.35)]
-        [InlineData("yoda", 270, 270, 0.35, 0.35)]
+        [InlineData("yoda", 90, 90, 0.65, 0.65)]
+        [InlineData("yoda", 270, 270, 0.65, 0.65)]
         public void BuildToHsl_ShouldCreateAColorInHSLWithCustomHueOption(
                     string phrase, int hue,
                     int hExpected, double sExpected, double lExpected)
@@ -69,10 +69,10 @@ namespace ColorHashSharp.Tests
 
 
         [Theory(DisplayName = "BuildToHsl_ShouldCreateAColorInHexWithCustomHueOption")]
-        [InlineData("yoda", 90, "59783A")]
-        [InlineData("yoda", 210, "3A5978")]
-        [InlineData("yoda", 270, "593A78")]
-        [InlineData("yoda", 360, "783A3A")]
+        [InlineData("yoda", 90, "A6E06C")]
+        [InlineData("yoda", 210, "6CA6E0")]
+        [InlineData("yoda", 270, "A66CE0")]
+        [InlineData("yoda", 360, "E06C6C")]
         public void BuildToHsl_ShouldCreateAColorInHexWithCustomHueOption(
                     string phrase, int hue, string hexExpected)
         {
@@ -91,10 +91,10 @@ namespace ColorHashSharp.Tests
         }
 
         [Theory(DisplayName = "BuildToHex_ShouldCreateAColorInHex")]
-        [InlineData("yoda", "68783A")]
-        [InlineData("Yoda", "D279BE")]
-        [InlineData("starwars", "AC5372")]
-        [InlineData("StarWars", "2D8643")]
+        [InlineData("yoda", "E06CB3")]
+        [InlineData("Yoda", "BFB040")]
+        [InlineData("starwars", "2DC5D2")]
+        [InlineData("StarWars", "BF4066")]
         public void BuildToHex_ShouldCreateAColorInHex(string phrase, string hexExpected)
         {
             var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
@@ -112,8 +112,7 @@ namespace ColorHashSharp.Tests
 
             var result = colorHash.BuildToColor("yoda");
             
-            Assert.Equal(Color.FromArgb(alpha:255,red:104,green:120, blue:58), 
-                        result);
+            Assert.Equal(Color.FromArgb(255, 224, 108, 179), result);
         }
 
         [Fact(DisplayName = "BuildToHsl_HelloWorldString")]
@@ -124,9 +123,9 @@ namespace ColorHashSharp.Tests
             var result = colorHash.BuildToHsl("Hello World");
 
             Assert.NotNull(result);
-            Assert.Equal(225, result.H);
+            Assert.Equal(233, result.H);
             Assert.Equal(0.35, result.S);
-            Assert.Equal(0.65, result.L);
+            Assert.Equal(0.5, result.L);
         }
 
         [Fact(DisplayName = "Build_HelloWorldStringToHslColorAndHex")]
@@ -138,15 +137,15 @@ namespace ColorHashSharp.Tests
             var resultColor = ColorHash.BuildToColor("Hello World");
             var resultHex = ColorHash.BuildToHex("Hello World");
 
-            Assert.Equal(135, resultColor.R);
-            Assert.Equal(150, resultColor.G);
-            Assert.Equal(197, resultColor.B);
+            Assert.Equal(83, resultColor.R);
+            Assert.Equal(93, resultColor.G);
+            Assert.Equal(172, resultColor.B);
 
-            Assert.Equal(225, resultHsl.H);
+            Assert.Equal(233, resultHsl.H);
             Assert.Equal(0.35, resultHsl.S);
-            Assert.Equal(0.65, resultHsl.L);
+            Assert.Equal(0.5, resultHsl.L);
 
-            Assert.Equal("8796C5", resultHex);
+            Assert.Equal("535DAC", resultHex);
 
 
         }
@@ -159,9 +158,9 @@ namespace ColorHashSharp.Tests
             var result = colorHash.Hsl("Hello World");
 
             Assert.NotNull(result);
-            Assert.Equal(225, result.H);
+            Assert.Equal(233, result.H);
             Assert.Equal(0.35, result.S);
-            Assert.Equal(0.65, result.L);
+            Assert.Equal(0.5, result.L);
         }
 
 
@@ -171,10 +170,10 @@ namespace ColorHashSharp.Tests
         {
             var colorHash = new Fernandezja.ColorHashSharp.ColorHash();
 
-            var result = colorHash.BuildToHex("Hello World");
+            var result = colorHash.Hex("Hello World");
 
             Assert.NotNull(result);
-            Assert.Equal("8796C5", result);
+            Assert.Equal("535DAC", result);
         }
 
 
@@ -185,9 +184,9 @@ namespace ColorHashSharp.Tests
 
             var result = colorHash.Rgb("Hello World");
 
-            Assert.Equal(135, result.R);
-            Assert.Equal(150, result.G);
-            Assert.Equal(197, result.B);
+            Assert.Equal(83, result.R);
+            Assert.Equal(93, result.G);
+            Assert.Equal(172, result.B);
         }
 
         [Fact(DisplayName = "Build_ShouldReturnHexString")]
@@ -198,7 +197,7 @@ namespace ColorHashSharp.Tests
             var result = colorHash.Build("Hello World");
 
             Assert.NotNull(result);
-            Assert.Equal("8796C5", result);
+            Assert.Equal("535DAC", result);
         }
 
         [Fact(DisplayName = "BuildToHsl_WithEmptyHueRanges_ShouldUseDefaultHueCalculation")]
