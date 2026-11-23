@@ -384,7 +384,7 @@ namespace ColorHashSharp.Tests
                 2.0, 
                 1.0);
 
-            Assert.NotNull(result);
+            Assert.True(result.GetSaturation() > color.GetSaturation());
         }
 
         [Fact(DisplayName = "TransformSaturationAndBrightness_ZeroBrightnessWithIncrease_ShouldIncrease")]
@@ -397,7 +397,7 @@ namespace ColorHashSharp.Tests
                 1.0, 
                 2.0);
 
-            Assert.NotNull(result);
+            Assert.True(result.GetBrightness() > color.GetBrightness());
         }
 
         [Fact(DisplayName = "TransformSaturationAndBrightness_WithCustomAlpha_ShouldSetAlpha")]

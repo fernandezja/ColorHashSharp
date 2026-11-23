@@ -137,7 +137,8 @@ namespace ColorHashSharp.Tests
                 5.0, 
                 5.0);
 
-            Assert.NotNull(result);
+            var expected = SimpleColorTransforms.HsBtoRgb(210, 1, 1);
+            Assert.Equal(expected, result);
         }
 
         #endregion
