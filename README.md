@@ -1,13 +1,14 @@
-﻿# ColorHashSharp
+# ColorHashSharp
+
 Generate color based on the given string. C# port of [ColorHash Javascript Library](https://github.com/zenozeng/color-hash).
 
 [![NuGet version (ColorHashSharp)](https://img.shields.io/nuget/v/ColorHashSharp.svg?style=flat-square)](https://www.nuget.org/packages/ColorHashSharp/) &nbsp; [![NuGet Downloads](https://img.shields.io/nuget/dt/ColorHashSharp.svg)](https://www.nuget.org/packages/ColorHashSharp/) &nbsp; 
 
-[![CodeFactor](https://www.codefactor.io/repository/github/fernandezja/colorhashsharp/badge)](https://www.codefactor.io/repository/github/fernandezja/colorhashsharp) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/7b256a3706a2434e9984dfb9f0d3da93)](https://app.codacy.com/gh/fernandezja/ColorHashSharp/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![CodeFactor](https://www.codefactor.io/repository/github/fernandezja/colorhashsharp/badge)](https://www.codefactor.io/repository/github/fernandezja/colorhashsharp)
 
 
 
-[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml/badge.svg)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml)&nbsp; [![Build status](https://fernandezja.visualstudio.com/ColorHashSharp/_apis/build/status/ColorHashSharp-CI)](https://fernandezja.visualstudio.com/ColorHashSharp/_build/latest?definitionId=4)
+[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml/badge.svg)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml)
 
 
 #### Status
@@ -18,9 +19,18 @@ Generate color based on the given string. C# port of [ColorHash Javascript Libra
 |CI   	|[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml/badge.svg?branch=main)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml)   	|[![CI](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml/badge.svg?branch=develop)](https://github.com/fernandezja/ColorHashSharp/actions/workflows/ci-dotnet.yml)  	|
 
 
-#### Basic
+## Installation
+
+```sh
+dotnet add package ColorHashSharp
+```
+
+## Basic usage
 
 ```csharp
+using System.Diagnostics;
+using Fernandezja.ColorHashSharp;
+
 Debug.WriteLine($"ColorHash >  Hello World");
 
 var colorHash = new ColorHash();
@@ -85,7 +95,7 @@ passed to a custom hash.
 
 ### Publishing to NuGet.org
 
-[Publish to NuGet](.github/workflows/publish-nuget.yml) builds and tests each release before packing it. The package version comes from the tag without its leading `v`. Use a stable tag such as `v2.0.0` or a prerelease tag such as `v2.0.0-rc.1`. Omit build metadata (`+...`) because NuGet.org normalizes it out of version identifiers.
+[Publish to NuGet](https://github.com/fernandezja/ColorHashSharp/blob/main/.github/workflows/publish-nuget.yml) builds and tests each release before packing it. The package version comes from the tag without its leading `v`. Use a stable tag such as `v2.0.0` or a prerelease tag such as `v2.0.0-rc.1`. Omit build metadata (`+...`) because NuGet.org normalizes it out of version identifiers.
 
 1. In GitHub, open **Settings → Environments → nuget**. Under **Environment variables**, set `NUGET_USER` to the NuGet.org profile name `fernandezja`. Under **Deployment branches and tags**, select **Selected branches and tags** and add a **Tag** rule for `v*.*.*`.
 2. On [NuGet.org → Trusted Publishing](https://www.nuget.org/account/trustedpublishing), add a GitHub Actions policy named `ColorHashSharp GitHub Actions` for the package owner. Set **Repository Owner** to `fernandezja`, **Repository** to `ColorHashSharp`, **Workflow File** to `publish-nuget.yml`, and **Environment** to `nuget`. Select **Push only new package versions** and enter `ColorHashSharp` under **Glob Patterns and Packages**. The workflow exchanges its OIDC token for a short-lived API key when the package is ready to publish.
@@ -97,3 +107,7 @@ passed to a custom hash.
    ```
 
    Check **Actions → Publish to NuGet** for the result, then verify the version on the [ColorHashSharp package page](https://www.nuget.org/packages/ColorHashSharp/).
+
+## Feedback and contributions
+
+Report issues and suggest improvements on [GitHub](https://github.com/fernandezja/ColorHashSharp/issues). Contributions are welcome through [pull requests](https://github.com/fernandezja/ColorHashSharp/pulls).

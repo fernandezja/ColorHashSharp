@@ -88,7 +88,6 @@ namespace ColorHashSharp.Tests
         {
             var result = ColorToRgb.ToRgb1(hue, 1, 0.5);
 
-            Assert.NotNull(result);
             Assert.Equal(255, result.A);
         }
 

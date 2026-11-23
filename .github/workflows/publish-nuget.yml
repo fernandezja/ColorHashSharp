@@ -58,7 +58,7 @@ jobs:
         run: dotnet pack src/ColorHashSharp/ColorHashSharp.csproj --configuration Release --no-build --output artifacts -p:Version=$env:RELEASE_VERSION -p:PackageVersion=$env:RELEASE_VERSION
 
       - name: Upload package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: nuget-package
           path: artifacts/ColorHashSharp.${{ steps.version.outputs.version }}.nupkg
@@ -88,7 +88,7 @@ jobs:
           dotnet-version: 11.0.x
 
       - name: Download package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: nuget-package
           path: artifacts
